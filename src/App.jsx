@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -55,6 +55,155 @@ function Section({ id, title, subtitle, children }) {
   )
 }
 
+function MatrixRain() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const reducedMotionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)')
+    const reducedMotion = Boolean(reducedMotionQuery?.matches)
+
+    let raf = 0
+    let width = 0
+    let height = 0
+    let columns = 0
+    let drops = []
+    let speeds = []
+    let lastFrameTs = 0
+
+    const fontSize = 14
+    const charset = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF'
+    const targetFps = 22
+    const frameIntervalMs = 1000 / targetFps
+    const baseDropSpeed = 0.55
+
+    function resize() {
+      const parent = canvas.parentElement
+      const rect = parent?.getBoundingClientRect()
+      if (!rect) return
+
+      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1))
+      width = Math.max(1, Math.floor(rect.width))
+      height = Math.max(1, Math.floor(rect.height))
+      canvas.width = width * dpr
+      canvas.height = height * dpr
+      canvas.style.width = `${width}px`
+      canvas.style.height = `${height}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+      columns = Math.max(1, Math.floor(width / fontSize))
+      drops = new Array(columns).fill(0).map(() => Math.random() * (height / fontSize))
+      speeds = new Array(columns)
+        .fill(0)
+        .map(() => baseDropSpeed * (0.35 + Math.random() * 0.65))
+    }
+
+    function frame() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.10)'
+      ctx.fillRect(0, 0, width, height)
+
+      ctx.font = `${fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace`
+      ctx.fillStyle = 'rgba(53, 255, 121, 0.92)'
+
+      for (let i = 0; i < columns; i += 1) {
+        const x = i * fontSize
+        const y = Math.floor(drops[i]) * fontSize
+        const char = charset[Math.floor(Math.random() * charset.length)]
+        ctx.fillText(char, x, y)
+
+        if (y > height && Math.random() > 0.975) {
+          drops[i] = 0
+        }
+        drops[i] += speeds[i] || baseDropSpeed
+      }
+    }
+
+    function loop(ts) {
+      if (!lastFrameTs) lastFrameTs = ts
+
+      const elapsed = ts - lastFrameTs
+      if (elapsed >= frameIntervalMs) {
+        frame()
+        lastFrameTs = ts
+      }
+
+      raf = window.requestAnimationFrame(loop)
+    }
+
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resize) : null
+    ro?.observe(canvas.parentElement)
+    window.addEventListener('resize', resize)
+
+    resize()
+    frame()
+    if (!reducedMotion) {
+      raf = window.requestAnimationFrame(loop)
+    }
+
+    return () => {
+      if (raf) window.cancelAnimationFrame(raf)
+      window.removeEventListener('resize', resize)
+      ro?.disconnect()
+    }
+  }, [])
+
+  return <canvas ref={canvasRef} className="matrixCanvas" aria-hidden="true" />
+}
+
+function OpsTicker() {
+  const [lines, setLines] = useState(() => [
+    '[boot] initializing telemetry...',
+    '[ok] pipelines: ingest=up parse=up enrich=up',
+    '[ok] ruleset: sigma=loaded yara=loaded',
+  ])
+
+  useEffect(() => {
+    const reducedMotionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)')
+    if (reducedMotionQuery?.matches) return
+
+    const samples = [
+      '[scan] nmap: services fingerprinted',
+      '[hunt] suspicious auth burst detected',
+      '[triage] alert: phishing-chain=possible',
+      '[edr] endpoint: isolation=ready',
+      '[net] dns anomalies: low',
+      '[siem] correlation: 2 hits (MITRE:T1059)',
+      '[ir] playbook: containment staged',
+      '[opsec] secrets: not logged',
+    ]
+
+    const id = window.setInterval(() => {
+      const next = samples[Math.floor(Math.random() * samples.length)]
+      setLines((prev) => {
+        const merged = [...prev, next]
+        return merged.slice(Math.max(0, merged.length - 7))
+      })
+    }, 900)
+
+    return () => window.clearInterval(id)
+  }, [])
+
+  return (
+    <div className="opsBody">
+      <div className="opsPromptLine">
+        <span className="opsPrompt">$</span> tail -f /var/log/ops/stream.log <span className="opsCursor">█</span>
+      </div>
+      <div className="opsLog">
+        {lines.map((l, idx) => (
+          <div key={`${idx}-${l}`} className="opsLine">
+            {l}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const { meta, profile, links, training, certifications, projects, experience, programming, otherSections, footer } = config
 
@@ -97,9 +246,37 @@ export default function App() {
         </div>
 
         <div className="hero">
-          <pre className="ascii" aria-label="banner">
-            {profile.asciiBanner.join('\n')}
-          </pre>
+          <div className="heroLeft">
+            <pre className="ascii" aria-label="banner">
+              {profile.asciiBanner.join('\n')}
+            </pre>
+
+            <div className="matrixWindow" aria-label="matrix">
+              <div className="matrixHeader">
+                <div className="terminalDots">
+                  <span className="dot dotRed" />
+                  <span className="dot dotYellow" />
+                  <span className="dot dotGreen" />
+                </div>
+                <div className="terminalTitle">matrix://stream</div>
+              </div>
+              <div className="matrixBody">
+                <MatrixRain />
+              </div>
+            </div>
+
+            <div className="opsWindow" aria-label="ops">
+              <div className="opsHeader">
+                <div className="terminalDots">
+                  <span className="dot dotRed" />
+                  <span className="dot dotYellow" />
+                  <span className="dot dotGreen" />
+                </div>
+                <div className="terminalTitle">ops://status</div>
+              </div>
+              <OpsTicker />
+            </div>
+          </div>
 
           <div className="heroRight">
             <div className="terminal">
