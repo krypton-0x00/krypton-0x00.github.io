@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "siteTitle": "Shakir Gulzar",
+    "tagline": "Penetration Tester | SOC Analyst"
+  },
+  "profile": {
+    "handle": "@krypton-0x00",
+    "name": "Shakir Gulzar",
+    "role": "Penetration Tester & SOC Analyst",
+    "headline": "Aspiring Cyber Security Professional",
+    "location": "India, Jammu and Kashmir",
+    "email": "shakir0x00@gmail.com",
+    "phone": "Hidden",
+    "summary": "Aspiring cybersecurity professional actively seeking a technical security role. Focused on developing practical skills in threat detection, incident analysis, vulnerability discovery, and attack-defense techniques across applications and systems.",
+    "focusAreas": [
+      "Malware Analysis",
+      "Threat Detection & Triage",
+      "Incident Response Support",
+      "Programming",
+      "Penetration Testing"
+    ],
+    "asciiBanner": [
+      " ██╗  ██╗██████╗ ██╗   ██╗██████╗ ████████╗ ██████╗ ███╗   ██╗ ",
+      " ██║ ██╔╝██╔══██╗╚██╗ ██╔╝██╔══██╗╚══██╔══╝██╔═══██╗████╗  ██║ ",
+      " █████╔╝ ██████╔╝ ╚████╔╝ ██████╔╝   ██║   ██║   ██║██╔██╗ ██║ ",
+      " ██╔═██╗ ██╔══██╗  ╚██╔╝  ██╔═══╝    ██║   ██║   ██║██║╚██╗██║ ",
+      " ██║  ██╗██║  ██║   ██║   ██║        ██║   ╚██████╔╝██║ ╚████║ ",
+      " ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝    ╚═════╝ ╚═╝  ╚═══╝ "
+    ]
+
+  },
+  "links": {
+    "github": "https://github.com/krypton-0x00",
+    "linkedin": "https://www.linkedin.com/in/shakir-gulzar-29ba52320/",
+    "blog": "https://zazzu.github.io",
+    "resume": "https://drive.google.com/file/d/19MvMesIfAWYK4Jv_8Cb4Fc677s2T_2V0/view?usp=sharing",
+    "tryhackme": "https://tryhackme.com/p/0xshakir",
+    "hackthebox": "https://app.hackthebox.com/users/2329143"
+  },
+  "training": [
+    {
+      "name": "100xDevs – Full Stack MERN Certification",
+      "status": "Completed",
+      "notes": "Completed structured training in web technologies with emphasis on understanding application architecture and security-relevant components."
+    },
+    {
+      "name": "SOC Analyst Learning Path",
+      "status": "Completed",
+      "notes": "Completed Tier 1 SOC analyst training focused on hands-on investigation, covering cyber kill chain concepts and MITRE ATT&CK, with practical experience in phishing email analysis, malware analysis fundamentals, and detection of web-based attacks using simulated lab environments."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Certified Cybersecurity Educator Professional (CCEP)",
+      "issuer": "Red Team Leaders",
+      "status": "Validated",
+      "issued": "2025",
+      "credentialUrl": "",
+      "notes": "Validated expertise across core cybersecurity domains including network security, security architecture, IAM, offensive and defensive security, cloud security, application security, SOC operations, and incident response."
+    },
+    {
+      "name": "Hack The Box – Certified Defensive Security Analyst (CDSA)",
+      "issuer": "Hack The Box",
+      "status": "In Progress",
+      "issued": "2025",
+      "credentialUrl": "",
+      "notes": "Training focused on SOC operations, detection engineering fundamentals, log analysis, and incident response methodologies."
+    }
+  ],
+  "projects": [
+    {
+      "name": "SOC Incident Investigations (TryHackMe SOC Simulator)",
+      "type": "Hands-on Practice",
+      "stack": ["TryHackMe", "Log Analysis", "Incident Triage"],
+      "description": "Conducted SOC-style incident investigations by analyzing alerts, logs, and attacker behavior to triage phishing, malware, and suspicious activity.",
+      "highlights": [
+        "Alert triage and investigation workflow",
+        "Phishing analysis and behavioral analysis",
+        "Documented findings and response steps"
+      ],
+      "repoUrl": "",
+      "liveUrl": ""
+    },
+    {
+      "name": "PoC Port: CVE-2025-32463 to Rust",
+      "type": "Exploit Research / Learning",
+      "stack": ["Rust", "Linux", "Privilege Escalation"],
+      "description": "Ported a known local privilege escalation PoC for CVE-2025-32463 to Rust to deepen understanding of Linux privilege escalation and exploit construction.",
+      "highlights": [
+        "Hands-on Rust implementation",
+        "Linux privilege escalation concepts",
+        "Reproducible PoC workflow"
+      ],
+      "repoUrl": "https://github.com/krypton-0x00/CVE-2025-32463-Chwoot-POC",
+      "liveUrl": ""
+    },
+    {
+      "name": "Rust TCP Port Scanner",
+      "type": "Security Tooling",
+      "stack": ["Rust", "Networking", "Recon"],
+      "description": "Built a multi-threaded TCP port scanner in Rust to identify open ports on target hosts and practice networking fundamentals, concurrency, and reconnaissance techniques.",
+      "highlights": [
+        "Concurrency and timeouts",
+        "Service discovery basics",
+        "Reconnaissance workflow"
+      ],
+      "repoUrl": "https://github.com/krypton-0x00/smap",
+      "liveUrl": ""
+    }
+  ],
+  "experience": [
+    {
+      "title": "Cloud Server Security (Microsoft Azure)",
+      "type": "Practical Security Experience",
+      "notes": "Deployed and secured a public-facing game server by implementing firewall rules, access controls, and basic DDoS mitigation to maintain availability and protect against common threats."
+    }
+  ],
+  "programming": {
+    "title": "Programming & Scripting",
+    "languages": ["Rust", "C", "C++", "Python", "JavaScript", "Assembly x64 (linux)", "Typescript"],
+    "notes": "Proficient in these languages with experience using them for security tooling, exploit analysis, automation, and system-level inspection."
+  },
+  "otherSections": [
+    {
+      "id": "skills",
+      "title": "Skills",
+      "items": [
+        "Vulnerability Assessment",
+        "Network Enumeration",
+        "Detection Engineering",
+        "Log Analysis",
+        "Threat Hunting",
+        "Incident Response",
+        "Detection Engineering",
+        "Penetration Testing"
+      ]
+    },
+    {
+      "id": "tooling",
+      "title": "Tooling",
+      "items": [
+        "Burp Suite",
+        "Elastic Stack (ELK)",
+        "Snort",
+        "IDA Pro",
+        "Nmap",
+        "Sigma",
+        "Yara",
+        "Splunk"
+      ]
+    }
+   
+  ],
+  "footer": {
+    "statusLine": "Status: Online | Mode: OPSEC-aware | Logs: Enabled",
+    "disclaimer": "All testing performed with explicit authorization."
+  }
+}
